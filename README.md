@@ -4,7 +4,7 @@ Net::Amazon::SignatureVersion4 - Signs requests using Amazon's Signature Version
 
 # VERSION
 
-version 0.001
+version 0.002\_01
 
 # SYNOPSIS
 
@@ -45,10 +45,7 @@ http://docs.amazonwebservices.com/general/latest/gr/signature-version-4.html
 
 The tests for this module are taken from the test suite provided by
 Amazon.  This implementation does not yet pass all the tests.  The
-following tests are failing:
-
-post-vanilla-query-nonunreserved: URI:Encode does not encode this test
-as Amazon wishes.
+following test is failing:
 
 get-header-value-multiline: Amazon did not supply enough files for
 this test.  The test may be run, but the results can not be validated.
