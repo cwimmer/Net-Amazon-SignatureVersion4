@@ -49,10 +49,7 @@ http://docs.amazonwebservices.com/general/latest/gr/signature-version-4.html
 
 The tests for this module are taken from the test suite provided by
 Amazon.  This implementation does not yet pass all the tests.  The
-following tests are failing:
-
-post-vanilla-query-nonunreserved: URI:Encode does not encode this test
-as Amazon wishes.
+following test is failing:
 
 get-header-value-multiline: Amazon did not supply enough files for
 this test.  The test may be run, but the results can not be validated.
@@ -209,7 +206,6 @@ sub get_canonical_request{
     my $version;
     my $canonical_query_string="";
     my %headers=();
-    my $encoder = URI::Encode->new();
     
     foreach my $name ( $self->get_request()->header_field_names() ){
 	my @value=$self->get_request()->header($name);
@@ -248,7 +244,7 @@ sub get_canonical_request{
 	(my $name, my $value)=split(/=/, $param);
 	$name="" unless (defined $name);
 	$value="" unless (defined $value);
-	$canonical_query_string=$canonical_query_string.$encoder->encode($name)."=".$encoder->encode($value)."&";
+	$canonical_query_string=$canonical_query_string._encode($name)."="._encode($value)."&";
     }
     $canonical_query_string=substr($canonical_query_string, 0, -1) unless ($canonical_query_string eq "");
     $full_uri=~tr/\///s;
@@ -298,5 +294,27 @@ sub get_canonical_request{
 	$SignedHeaders . "\r\n" .
 	sha256_hex($self->get_request()->content());
     return $CanonicalRequest;
+}
+
+sub _encode{
+    #This method is used to add some additional encodings that are not enforced by the URI::Encode module.  AWS expects these.
+    my $encoder = URI::Encode->new();
+    my $rv=shift;
+#    %20=%2F%2C%3F%3E%3C%60%22%3B%3A%5C%7C%5D%5B%7B%7D&%40%23%24%25%5E=
+#    +  =/  ,  ?  %3E%3C%60%22;  :  %5C%7C]  [  %7B%7D&@  #  $  %25%5E=
+    $rv=$encoder->encode($rv);
+    $rv=~s/\+/\%20/g;
+    $rv=~s/\//\%2F/g;
+    $rv=~s/\,/\%2C/g;
+    $rv=~s/\?/\%3F/g;
+    $rv=~s/\;/\%3B/g;
+    $rv=~s/\:/\%3A/g;
+    $rv=~s/\]/\%5D/g;
+    $rv=~s/\[/\%5B/g;
+    $rv=~s/\@/\%40/g;
+    $rv=~s/\#/\%23/g;
+    $rv=~s/\$/\%24/g;
+#    $rv=~s///g;
+    return $rv;
 }
 1;
