@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use Test::More;
 use HTTP::Request;
-use 5.012; # so readdir assigns to $_ in a lone while test
 
 use Net::Amazon::SignatureVersion4;
 my $sig=new Net::Amazon::SignatureVersion4();
@@ -18,7 +17,8 @@ if ( ! opendir($testsuite, $test_suite_location)){
     exit(1);
 }
 
-while(readdir $testsuite) {
+my @tests=readdir $testsuite;
+while(my $_=pop @tests) {
     next unless ($_=~m/(.*)\.req/);
     my $test=$1;
 #    diag "Test: $test\n";
