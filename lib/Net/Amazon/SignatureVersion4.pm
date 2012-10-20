@@ -298,7 +298,7 @@ sub get_canonical_request{
 
 sub _encode{
     #This method is used to add some additional encodings that are not enforced by the URI::Encode module.  AWS expects these.
-    my $encoder = URI::Encode->new();
+    my $encoder = URI::Encode->new({ double_encode => 0 });
     my $rv=shift;
 #    %20=%2F%2C%3F%3E%3C%60%22%3B%3A%5C%7C%5D%5B%7B%7D&%40%23%24%25%5E=
 #    +  =/  ,  ?  %3E%3C%60%22;  :  %5C%7C]  [  %7B%7D&@  #  $  %25%5E=
