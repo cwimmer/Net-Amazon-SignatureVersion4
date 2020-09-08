@@ -1,12 +1,18 @@
-use strict;
+use v5.32;
+use utf8;
 use warnings;
+use open qw(:std :utf8);
+no feature qw(indirect);
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
+
 package Net::Amazon::SignatureVersion4;
+
 use MooseX::App qw(Config);
-use Digest::SHA qw(sha256_hex hmac_sha256_hex hmac_sha256 hmac_sha256_base64);
 use POSIX qw(strftime);
+use Digest::SHA qw(sha256_hex hmac_sha256_hex hmac_sha256 hmac_sha256_base64);
 use URI::Encode;
 use HTTP::Date;
-use 5.010;
 
 # ABSTRACT: Signs requests using Amazon's Signature Version 4.
 
@@ -14,7 +20,7 @@ use 5.010;
 
     use Net::Amazon::SignatureVersion4;
 
-    my $sig=new Net::Amazon::SignatureVersion4();
+    my $sig=Net::Amazon::SignatureVersion4->new();
     my $hr=HTTP::Request->new('GET','http://glacier.us-west-2.amazonaws.com/-/vaults', [ 
 				   'Host', 'glacier.us-west-2.amazonaws.com', 
 				   'Date', strftime("%Y%m%dT%H%M%SZ",gmtime(time())) , 
