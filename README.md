@@ -87,7 +87,7 @@ Charles A. Wimmer <charles@wimmer.net>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by Charles A. Wimmer.
+This software is Copyright (c) 2020 by Charles A. Wimmer.
 
 This is free software, licensed under:
 
