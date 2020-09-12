@@ -18,8 +18,32 @@ before_install:
    - git config --global user.name "TravisCI"
    - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
 install:
-   - cpanm --quiet --notest --skip-satisfied Dist::Zilla
-   - "dzil authordeps          --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm --quiet --notest"
-   - "dzil listdeps   --author --missing | grep -vP '[^\\w:]' | cpanm --verbose"
+   - export OLD_CPANM_OPT=$PERL_CPANM_OPT
+   - export PERL_CPANM_OPT='--mirror http://cpan.metacpan.org/ --mirror http://search.cpan.org/CPAN' $PERL_CPANM_OPT
+   - cpanm --verbose SMUELLER/
+   - cpanm --verbose MARCEL/
+   - cpanm --verbose URI/
+   - cpanm --verbose MAROS/
+   - cpanm --verbose RJBS/
+   - cpanm --verbose GTERMARS/
+   - cpanm --verbose LKUNDRAK/
+   - cpanm --verbose THALJEF/
+   - cpanm --verbose DWHEELER/
+   - cpanm --verbose PETDANCE/
+   - cpanm --verbose MITHUN/
+   - cpanm --verbose GAAS/
+   - cpanm --verbose --installdeps SMUELLER/
+   - cpanm --verbose --installdeps MARCEL/
+   - cpanm --verbose --installdeps URI/
+   - cpanm --verbose --installdeps MAROS/
+   - cpanm --verbose --installdeps RJBS/
+   - cpanm --verbose --installdeps GTERMARS/
+   - cpanm --verbose --installdeps LKUNDRAK/
+   - cpanm --verbose --installdeps THALJEF/
+   - cpanm --verbose --installdeps DWHEELER/
+   - cpanm --verbose --installdeps PETDANCE/
+   - cpanm --verbose --installdeps MITHUN/
+   - cpanm --verbose --installdeps GAAS/
+   - export PERL_CPANM_OPT=$OLD_CPANM_OPT
 script:
    - dzil smoke --release --author
