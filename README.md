@@ -4,19 +4,19 @@ Net::Amazon::SignatureVersion4 - Signs requests using Amazon's Signature Version
 
 # VERSION
 
-version 0.005
+version 0.007
 
 # SYNOPSIS
 
     use Net::Amazon::SignatureVersion4;
 
-    my $sig=new Net::Amazon::SignatureVersion4();
+    my $sig=Net::Amazon::SignatureVersion4->new();
     my $hr=HTTP::Request->new('GET','http://glacier.us-west-2.amazonaws.com/-/vaults', [ 
-				   'Host', 'glacier.us-west-2.amazonaws.com', 
-				   'Date', strftime("%Y%m%dT%H%M%SZ",gmtime(time())) , 
-				   'X-Amz-Date', strftime("%Y%m%dT%H%M%SZ",gmtime(time())) , 
-				   'x-amz-glacier-version', '2012-06-01',
-			       ]);
+                                   'Host', 'glacier.us-west-2.amazonaws.com', 
+                                   'Date', strftime("%Y%m%dT%H%M%SZ",gmtime(time())) , 
+                                   'X-Amz-Date', strftime("%Y%m%dT%H%M%SZ",gmtime(time())) , 
+                                   'x-amz-glacier-version', '2012-06-01',
+                               ]);
     $hr->protocol('HTTP/1.1');
 
     $sig->set_request($request); # $request is HTTP::Request
@@ -87,7 +87,7 @@ Charles A. Wimmer <charles@wimmer.net>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by Charles A. Wimmer.
+This software is Copyright (c) 2022 by Charles A. Wimmer.
 
 This is free software, licensed under:
 
