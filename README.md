@@ -4,7 +4,7 @@ Net::Amazon::SignatureVersion4 - Signs requests using Amazon's Signature Version
 
 # VERSION
 
-version 0.006\_01
+version 0.006\_02
 
 # SYNOPSIS
 
@@ -87,7 +87,7 @@ Charles A. Wimmer <charles@wimmer.net>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2020 by Charles A. Wimmer.
+This software is Copyright (c) 2022 by Charles A. Wimmer.
 
 This is free software, licensed under:
 

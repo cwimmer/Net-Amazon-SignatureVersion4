@@ -24,7 +24,7 @@ if ( ! opendir($testsuite, $test_suite_location)){
 }
 
 my @tests=readdir $testsuite;
-while(my $_=pop @tests) {
+while(local $_=pop @tests) {
     next unless ($_=~m/(.*)\.req/);
     my $test=$1;
 #    diag "Test: $test\n";
