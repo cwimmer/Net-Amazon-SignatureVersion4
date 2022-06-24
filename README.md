@@ -4,7 +4,7 @@ Net::Amazon::SignatureVersion4 - Signs requests using Amazon's Signature Version
 
 # VERSION
 
-version 0.006\_02
+version 0.007
 
 # SYNOPSIS
 
